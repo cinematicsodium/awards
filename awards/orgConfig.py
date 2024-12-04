@@ -1,6 +1,0 @@
-na_aaa = ('na-aaa', 'na-aaa-019', 'na-aaa-031', 'na-aaa-061', 'na-aaa-067', 'na-aaa-088')
-na_bbb = ('na-bbb', 'na-bbb-021', 'na-bbb-045', 'na-bbb-081', 'na-bbb-082', 'na-bbb-094')
-na_ccc = ('na-ccc', 'na-ccc-002', 'na-ccc-032', 'na-ccc-032', 'na-ccc-047', 'na-ccc-093')
-na_ddd = ('na-ddd', 'na-ddd-010', 'na-ddd-037', 'na-ddd-083', 'na-ddd-084', 'na-ddd-092')
-na_eee = ('na-eee', 'na-eee-009', 'na-eee-028', 'na-eee-065', 'na-eee-070', 'na-eee-073')
-ORGS = (na_aaa, na_bbb, na_ccc, na_ddd, na_eee)
