@@ -1,6 +1,11 @@
 from dataclasses import dataclass
 import grpConfig
 
+
+# TESTING_FOLDER = None
+TESTING_FOLDER = None
+
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # AWARD CONSTANTS
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -45,7 +50,10 @@ class PageCountConfig:
 PAGE_COUNTS = PageCountConfig()
 
 
-FUNDING_ORG_FIELDS: tuple[str, ...] = ('org', 'org_2', 'org_3', 'org_4', 'org_6')
+FUNDING_ORG_FIELDS: tuple[str, ...] = (
+    'org_2', 'org_3', 'org_4', 'org_6',
+    'organization_2', 'organization_3', 'organization_5', 'organization_6',
+    )
 
 
 @dataclass(frozen=True)
@@ -70,11 +78,13 @@ OTS_FIELDS = ValueFields(
 
 @dataclass(frozen=True)
 class CommonFields:
-    nominator_name: str = 'please print'
+    nominator_name_1: str = 'please print'
+    nominator_name_2: str = 'nominators name'
     date_received: str = 'date received'
     effective_date: str = 'effective date'
     noac_code: str = 'noac'
-    justification: str = 'extent of application'
+    justification_1: str = 'extent of application'
+    justification_2: str = 'extent of application limited extended or general'
     values: tuple[str, ...] = RatingScale().VALUES
     extents: tuple[str, ...] = RatingScale().EXTENTS
     funding_orgs: tuple[str, ...] = FUNDING_ORG_FIELDS
@@ -87,7 +97,8 @@ COMMON_FIELDS = CommonFields()
 class IndFields(CommonFields):
     employee_name: str = 'employee name'
     employee_org: str = 'organization'
-    employee_pay_plan: str = 'pay plan gradestep 1'
+    employee_pay_plan_1: str = 'pay plan gradestep 1'
+    employee_pay_plan_2: str = 'pay plan  gradestep 1'
     supervisor: str = 'please print_2'
 IND_FIELDS = IndFields()
 
