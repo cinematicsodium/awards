@@ -47,15 +47,14 @@ def get_ind_time(first_page_fields: dict) -> float:
 
 
 def get_ind_pay_plan(first_page_fields: dict) -> str:
-    pay_plan = 'N/A'
-
-    pay_plan_field = first_page_fields.get(IND_FIELDS.employee_pay_plan, '')
-    if pay_plan_field:
-        for payplan in PAY_PLANS:
-            if payplan in pay_plan_field.upper():
-                pay_plan = payplan
-                break
-    return pay_plan
+    pay_plan_val: str = max(
+        first_page_fields.get(IND_FIELDS.employee_pay_plan_1, ''),
+        first_page_fields.get(IND_FIELDS.employee_pay_plan_2, ''),
+        )
+    pay_plan_val = [pay_plan for pay_plan in PAY_PLANS if pay_plan_val.upper().startswith(pay_plan)]
+    if len(pay_plan_val) != 1:
+        return '-'
+    return pay_plan_val[0]
 
 
 def get_ind_employee(first_page_fields: dict) -> EmpInfo:
