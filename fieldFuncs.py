@@ -7,20 +7,22 @@ from orgConfig import ORGS
 
 
 def get_nominator_name(first_page_fields: dict) -> str:
-    nominator = Formatting.name(first_page_fields.get(COMMON_FIELDS.nominator_name, ''))
-    return nominator if nominator else ''
+    nominator = max(
+        first_page_fields.get(COMMON_FIELDS.nominator_name_1, ''),
+        first_page_fields.get(COMMON_FIELDS.nominator_name_2, ''),
+        )
+    return Formatting.name(nominator) if nominator else ''
 
 
-def find_main_org(org_fields_list: list[str]) -> str:
-    org_list = []
-    divs = [div for org in ORGS for div in org]
-    for org_field in org_fields_list:
-        for div in divs:
-            if div in org_field:
-                div = [org[0] for org in ORGS if org[0] in div]
-                org_list.extend(div)
-
-    return org_list
+def match_main_org(org_field: str) -> str:
+    org_field = org_field.lower()
+    for org in ORGS:
+        main_div = org[0].upper()
+        for div in org:
+            div = div.lower()
+            div_x = div.replace('na-','na')
+            if div.lower() in org_field.lower() or div_x in org_field.lower():
+                return main_div
 
 def determine_main_funding_org(first_page_fields: dict) -> str:
     org_fields_list: list[str] = [
@@ -31,11 +33,16 @@ def determine_main_funding_org(first_page_fields: dict) -> str:
     if not org_fields_list:
         return ''
 
-    main_orgs = find_main_org(org_fields_list)
-    if not main_orgs:
+    org_matches: list[str] = []
+    for org_field in org_fields_list:
+        org_match = match_main_org(org_field)
+        if org_match:
+            org_matches.append(org_match)
+
+    if not org_matches:
         return ''
 
-    org_counter = Counter(main_orgs)
+    org_counter = Counter(org_matches)
     most_common_org, _ = org_counter.most_common(1)[0]
     return most_common_org
 
@@ -56,7 +63,10 @@ def determine_award_type(first_page_fields: dict) -> str:
 
 def get_justification(last_page_fields: dict) -> JustifInfo:
     justification = JustifInfo()
-    justification_text = last_page_fields.get(COMMON_FIELDS.justification, '')
+    justification_text = max(
+        last_page_fields.get(COMMON_FIELDS.justification_1, ''),
+        last_page_fields.get(COMMON_FIELDS.justification_2, ''),
+    )
     if justification_text:
         justification.text = Formatting.justification(field_text=justification_text)
         justification.length = len(justification.text.split())
@@ -71,7 +81,7 @@ def get_value(last_page_fields: dict[str,str]) -> str:
     ]
 
     if len(value_fields) != 1:
-        return ''
+        return '-'
 
     return value_fields[0]
 
@@ -84,7 +94,7 @@ def get_extent(last_page_fields: dict[str,str]) -> str:
     ]
 
     if len(extent_fields) != 1:
-        return ''
+        return '-'
 
     return extent_fields[0]
 
