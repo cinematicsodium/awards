@@ -29,7 +29,7 @@ Award Details:
 - Value:       {value}
 - Extent:      {extent}
 
-[{value}] x [{extent}] Limits:
+({value} x {extent}) Limits:
 - Monetary:    ${max_monetary}
 - Time-Off:    {max_hours} hours
 
@@ -75,7 +75,7 @@ Award Details:
 - Value:       {value}
 - Extent:      {extent}
 
-{value} x {extent} Limits: (NAP 332.2, Pg. 21 - 23)
+({value} x {extent}) Limits:
 - Monetary:    ${max_monetary:,.2f}
 - Time-Off:    {max_hours:,} hours
 
@@ -83,9 +83,9 @@ Nominee Details:
 {employee_details}
 
 Totals:
-- Monetary:    ${monetary_sum}({monetary_ratio:.2%} of ${max_monetary:,.2f} limit)
-- Time-Off:    {hours_sum}({hours_ratio:.2%} of {max_hours:,}-hour limit)
-- Sum:         {sum_ratio}(Max Allowed: 100%)
+- Monetary:    ${monetary_sum}< {monetary_ratio:.2%} of ${max_monetary:,.2f} limit
+- Time-Off:    {hours_sum}< {hours_ratio:.2%} of {max_hours:,}-hour limit
+- Sum:         {sum_ratio}< Max Allowed: 100%
 
 {POLICY}
 
