@@ -32,7 +32,7 @@ def validate_ind_fields(ind_details: IndAwd) -> None:
         'log ID': ind_details.id,
         'nominator name': ind_details.nominator,
         'funding org': ind_details.funding_org,
-        'justification': ind_details.justification,
+        'justification': ind_details.justification.text,
         'nominee name': ind_details.employee.name,
     }
 
@@ -41,7 +41,7 @@ def validate_ind_fields(ind_details: IndAwd) -> None:
     if missing_fields:
         linebreak = '\n- '
         raise ValueError(
-            f'Missing required fields:\n'
+            f'Missing required fields:{linebreak}'
             f'{linebreak.join(missing_fields)}'
         )
 
