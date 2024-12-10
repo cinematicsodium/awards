@@ -30,5 +30,3 @@ class SimpleLogger:
 
     def error(self, message):
         self._log('ERROR', message)
-
-
