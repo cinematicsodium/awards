@@ -22,15 +22,12 @@ def get_grp_emp_supervisor(mid_section: dict[str,str], supervisor_key: str) -> s
 def get_grp_emp_org(mid_section: dict[str,str], org_key: str) -> str:
     return mid_section.get(org_key, '')
 
-def process_pay_plan(mid_section: dict[str,str], pay_plan_key: str) -> str:
-    pay_plan_val: str = mid_section.get(pay_plan_key, '')
+def get_grp_emp_pay_plan(mid_section: dict[str,str], pay_plan_key: str) -> str:
+    pay_plan_val: str = mid_section.get(pay_plan_key, '-')
     for pay_plan in PAY_PLANS:
         if pay_plan_val.upper().startswith(pay_plan):
             return pay_plan
     return pay_plan_val
-
-def get_grp_emp_pay_plan(mid_section: dict[str,str], pay_plan_key: str) -> str:
-    return process_pay_plan(mid_section, pay_plan_key)
 
 def get_grp_emp_monetary(mid_section: dict[str,str], monetary: str) -> float:
     monetary_val: str = mid_section.get(monetary, '')
@@ -72,7 +69,11 @@ def get_grp_employees(grp_config: list[EmpInfo], mid_section: dict[str,str]) -> 
 
     missing_employees: set = detected_employee_set - valid_employee_set
     if missing_employees:
-        raise ValueError(f'Unable to process the following employees: {", ".join(list(missing_employees))}')
+        formatted_employee_list = '\n- '.join(list(missing_employees))
+        raise ValueError(
+            'Unable to process the following employees:\n'
+            f'{formatted_employee_list}'
+            )
 
     return employees_list
 
