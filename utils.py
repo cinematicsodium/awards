@@ -1,3 +1,4 @@
+from winsound import Beep
 from modules import EmpInfo
 from pathlib import Path
 from constants import (
@@ -38,5 +39,14 @@ def is_compensation_valid(monetary: int, hours: int, max_monetary: int, max_hour
     return 0 < ratio <= 1.0
 
 
+def play_alert() -> None:
+    frequency_hz: int = 1000
+    duration_ms: int = 500
+    try:
+        Beep(frequency_hz, duration_ms)
+    except RuntimeError as e:
+        print(e)
+
+
 if __name__ == '__main__':
-    pass
+    play_alert()
