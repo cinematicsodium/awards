@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import NamedTuple
 
 
-class FiscalYear(NamedTuple):
+class FYInfo(NamedTuple):
     year: str
     submissions_inbox: str
     serial_numbers_json: str
@@ -48,11 +48,12 @@ class JustifInfo:
 @dataclass
 class EmpInfo:
     name: str = ''
-    monetary: float = 0.0
-    hours: float = 0.0
+    supervisor: str = ''
     org: str = ''
     pay_plan: str = ''
-    supervisor: str = ''
+    monetary: float = 0.0
+    hours: float = 0.0
+# grpConfig == EmpInfo('employee name_2','immediate supervisor','organization_7','pay plan  gradestep_2','award amount','time off hours'),
 
 
 @dataclass
@@ -71,9 +72,16 @@ class AwardDetails:
 @dataclass
 class IndAwd(AwardDetails):
     employee: EmpInfo = field(default_factory=EmpInfo)
+
     category: str = 'IND'
     def __str__(self):
-        return (f'id:             {self.id}\n'
+        f_name: str     = self.employee.name.ljust(4)
+        f_monetary: str = f'{self.employee.monetary:0,.2f}'
+        f_monetary: str = f'${f_monetary.ljust(4)}'
+        f_time: str     = f'{self.employee.hours} hours'
+        formatted_employee: str = f_name+f_monetary+f_time        
+        return (
+                f'id:             {self.id}\n'
                 f'date_received:  {self.date_received}\n'
                 f'funding_org:    {self.funding_org}\n'
                 f'category:       {self.category}\n'
@@ -82,9 +90,7 @@ class IndAwd(AwardDetails):
                 f'justification:  {self.justification.length} words\n'
                 f'value:          {self.value}\n'
                 f'extent:         {self.extent}\n'
-                f'employee:       {self.employee.name}\n'
-                f'monetary:       ${self.employee.monetary:0,.2f}\n'
-                f'time-off:       {self.employee.hours} hours'
+                f'employee:       {formatted_employee}\n'
         )
 
 
@@ -105,7 +111,8 @@ class GrpAwd(AwardDetails):
             for employee in self.employees
         ])
 
-        return (f'id:             {self.id}\n'
+        return (
+                f'id:             {self.id}\n'
                 f'date_received:  {self.date_received}\n'
                 f'category:       {self.category}\n'
                 f'funding_org:    {self.funding_org}\n'
@@ -118,6 +125,3 @@ class GrpAwd(AwardDetails):
                 f'employees:\n'
                 f'{formatted_employee_list}'
         )
-
-
-
