@@ -75,7 +75,9 @@ def extract_pdf_info(pdf_path: str, fy: str, serial_numbers: SerialNumbers) -> P
                     pdf_info.mid_section[key] = val
 
         if field_count <= 10:
-            raise ValueError(f'Field Count: {field_count} (not enough fields found)')
+            raise ValueError(
+                'Not enough fields to continue.\n'
+                f'Field Count: {field_count}')
     return pdf_info
 
 
@@ -92,9 +94,10 @@ def export_as_TSV(tsv_path: str, award_data: IndAwd | GrpAwd) -> None:
         "", # pay plan
         "", # org
         "", # supervisor
+        "", # group name
         award_data.nominator,
         award_data.funding_org,
-        "", # MB div (empty)
+        "", # div (empty)
         award_data.justification.text,
         award_data.value.title(),
         award_data.extent.title(),
@@ -118,11 +121,12 @@ def export_as_TSV(tsv_path: str, award_data: IndAwd | GrpAwd) -> None:
                 fields[8] = employee.pay_plan
                 fields[9] = employee.org
                 fields[10] = employee.supervisor
+                fields[11] = award_data.team_name
                 f.write("\t".join(fields) + '\n')
 
 
 def export_as_txt(details_path: str, award_details: IndAwd | GrpAwd) -> None:
-    with open(details_path, 'w') as f:
+    with open(details_path, 'a') as f:
         f.write(str(award_details) + '\n')
         f.write(f'\n{"."*50}\n\n')
 
