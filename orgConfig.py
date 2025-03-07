@@ -1,6 +1,0 @@
-aaa = ('AAA', 'AAA-019', 'AAA-031', 'AAA-061', 'AAA-067', 'AAA-088')
-bbb = ('BBB', 'BBB-021', 'BBB-045', 'BBB-081', 'BBB-082', 'BBB-094')
-ccc = ('CCC', 'CCC-002', 'CCC-032', 'CCC-032', 'CCC-047', 'CCC-093')
-ddd = ('DDD', 'DDD-010', 'DDD-037', 'DDD-083', 'DDD-084', 'DDD-092')
-eee = ('EEE', 'EEE-009', 'EEE-028', 'EEE-065', 'EEE-070', 'EEE-073')
-ORGS = (aaa, bbb, ccc, ddd, eee)
