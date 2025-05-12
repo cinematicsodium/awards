@@ -1,0 +1,66 @@
+{
+    "employee_name": [
+        "employee_name"
+    ],
+    "employee_pay_plan": [
+        "pay_plan_gradestep_1",
+        "pay_plan_gradestep"
+    ],
+    "employee_org": [
+        "organization"
+    ],
+    "sas_monetary": [
+        "undefined",
+        "amount"
+    ],
+    "sas_time": [
+        "hours",
+        "hours_2"
+    ],
+    "nominator_name": [
+        "please_print",
+        "nominators_name"
+    ],
+    "nominator_org": [
+        "org",
+        "organization_2"
+    ],
+    "supervisor_name": [
+        "a_nominees_team_leadersupervisor_1",
+        "please_print_2"
+    ],
+    "supervisor_org": [
+        "org_3",
+        "organization_3"
+    ],
+    "approver_name": [
+        "title",
+        "please_print_3",
+        "approving_officialdesignee_1"
+    ],
+    "approver_org": [
+        "org_4"
+    ],
+    "justificiation": [
+        "extent_of_application",
+        "extent_of_application_limited_extended_or_general"
+    ],
+    "ots_monetary": [
+        "on_the_spot_award"
+    ],
+    "ots_time": [
+        "hours"
+    ],
+    "ots_other": [
+        "undefined_2"
+    ],
+    "funding_string": [
+        "special_act_award_funding_string_1"
+    ],
+    "certifier_name": [
+        "special_act_award_funding_string_2"
+    ],
+    "certifier_org": [
+        "org_2"
+    ]
+}
