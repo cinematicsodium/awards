@@ -46,19 +46,6 @@ class Base:
         self.date_received = datetime.now().strftime("%Y-%m-%d")
         self.consultant: Optional[str] = None
 
-        self.fmtd_time_off_total: str = f"${self.total_monetary_amount}"
-        self.fmtd_time_off_total: str = f"{self.total_time_off_amount} hours"
-        self.fmtd_source_path: Optional[str] = (
-            self.source_path.name
-            if isinstance(self.source_path, Path)
-            else self.source_path
-        )
-        self.fmtd_justification: Optional[str] = (
-            f"{len(self.justification.split(' '))} words"
-            if isinstance(self.justification, str)
-            else None
-        )
-
         self.pdf_data: dict[str, str | int | None] = {}
 
         self.evaluator = Evaluator()
@@ -148,7 +135,7 @@ class Base:
 
     def _sort_employee_data(self) -> dict[int, dict[str, str | int | None]]:
         if not self.employee_data:
-            return
+            return self.employee_data
 
         names: list[str] = [str(name) for name in self.employee_data.keys()]
         names.sort()
@@ -164,13 +151,25 @@ class Base:
         )
 
     def as_dict(self):
+        total_monetary_amount = f"${self.total_monetary_amount}" if isinstance(self.total_monetary_amount,int) else self.total_monetary_amount
+        total_time_off_amount = f"{self.total_time_off_amount} hours" if isinstance(self.total_time_off_amount,int) else self.total_time_off_amount
+        source_path = (
+            self.source_path.name
+            if isinstance(self.source_path, Path)
+            else self.source_path
+        )
+        justification = (
+            f"{len(self.justification.split(' '))} words"
+            if isinstance(self.justification, str)
+            else self.justification
+        )
         attributes: dict[str, str | int | None | dict[int, Employee]] = {
-            "source_path": self.fmtd_source_path,
+            "source_path": source_path,
             "log_id": self.log_id,
             "funding_org": self.funding_org,
             "funding_string": self.funding_string,
-            "total_monetary_amount": self.total_monetary_amount,
-            "total_time_off_amount": self.total_time_off_amount,
+            "total_monetary_amount": total_monetary_amount,
+            "total_time_off_amount": total_time_off_amount,
             "nominator_name": self.nominator_name,
             "nominator_org": self.nominator_org,
             "approver_name": self.approver_name,
@@ -179,7 +178,7 @@ class Base:
             "certifier_org": self.certifier_org,
             "value": self.value,
             "extent": self.extent,
-            "justification": self.fmtd_justification,
+            "justification": justification,
             "category": self.category,
             "type": self.type,
             "date_received": self.date_received,
